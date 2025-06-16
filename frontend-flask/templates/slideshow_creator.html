@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Criador de Slideshow</title>
+</head>
+<body>
+    <h1>Criador de Slideshow a partir de Imagens</h1>
+    <form id="uploadForm">
+        <label for="fileInput">Selecione as imagens:</label>
+        <input type="file" id="fileInput" name="images" accept="image/*" required multiple><br><br>
+        
+        <label for="duration">Tempo de exibição por imagem (segundos):</label>
+        <input type="number" id="duration" name="duration" value="2" min="1" step="0.5"><br><br>
+        
+        <button type="submit">Gerar Vídeo</button>
+    </form>
+    <div id="result" style="margin-top: 20px;"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            const resultDiv = document.getElementById('result');
+            const functionUrl = '{{ function_url }}';
+
+            resultDiv.innerHTML = 'Gerando vídeo... Isso pode levar alguns instantes.';
+
+            try {
+                const response = await fetch(functionUrl, { method: 'POST', body: formData });
+                const result = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `<p>Sucesso! <a href="${result.download_url}" target="_blank">Baixar Vídeo do Slideshow</a></p>`;
+                } else {
+                    resultDiv.innerHTML = `<p style="color:red;">Erro: ${result.error || 'Ocorreu um problema.'}</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color:red;">Erro de comunicação com o servidor.</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

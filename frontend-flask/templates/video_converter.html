@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Conversor de Vídeo</title>
+</head>
+<body>
+    <h1>Conversor de Vídeo (Exemplo)</h1>
+    <p>Esta é uma demonstração. A conversão de vídeo real pode ser complexa.</p>
+    <form id="uploadForm">
+        <label for="fileInput">Selecione um vídeo (limite 50MB):</label>
+        <input type="file" id="fileInput" name="file" accept="video/*" required><br><br>
+        
+        <button type="submit">Enviar</button>
+    </form>
+    <div id="result" style="margin-top: 20px;"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            const resultDiv = document.getElementById('result');
+            const functionUrl = '{{ function_url }}';
+
+            resultDiv.innerHTML = 'Processando vídeo...';
+
+            try {
+                const response = await fetch(functionUrl, { method: 'POST', body: formData });
+                const result = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `<p>Sucesso! <a href="${result.download_url}" target="_blank">Baixar Vídeo Processado</a></p>`;
+                } else {
+                    resultDiv.innerHTML = `<p style="color:red;">Erro: ${result.error || 'Ocorreu um problema.'}</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color:red;">Erro de comunicação com o servidor.</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

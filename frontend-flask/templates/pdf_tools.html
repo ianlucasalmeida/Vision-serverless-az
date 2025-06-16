@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Ferramentas de PDF</title>
+</head>
+<body>
+    <h1>Ferramentas de PDF</h1>
+    <form id="uploadForm">
+        <p><strong>Unir PDFs</strong></p>
+        <label for="fileInput">Selecione 2 ou mais arquivos PDF:</label>
+        <input type="file" id="fileInput" name="files" accept=".pdf" required multiple><br><br>
+        
+        <input type="hidden" name="action" value="merge">
+        
+        <button type="submit">Unir Arquivos</button>
+    </form>
+    <div id="result" style="margin-top: 20px;"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            const resultDiv = document.getElementById('result');
+            const functionUrl = '{{ function_url }}';
+
+            resultDiv.innerHTML = 'Processando... Por favor, aguarde.';
+
+            try {
+                const response = await fetch(functionUrl, { method: 'POST', body: formData });
+                const result = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `<p>Sucesso! <a href="${result.download_url}" target="_blank">Baixar PDF Unificado</a></p>`;
+                } else {
+                    resultDiv.innerHTML = `<p style="color:red;">Erro: ${result.error || 'Ocorreu um problema.'}</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color:red;">Erro de comunicação com o servidor.</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

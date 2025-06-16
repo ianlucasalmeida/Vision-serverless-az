@@ -1,0 +1,6 @@
+azure-functions
+azure-storage-blob
+Pillow
+PyPDF2
+moviepy
+numpy

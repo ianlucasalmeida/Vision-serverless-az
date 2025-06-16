@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Conversor de Imagem</title>
+</head>
+<body>
+    <h1>Conversor de Imagem</h1>
+    <form id="uploadForm">
+        <label for="fileInput">Selecione uma imagem:</label>
+        <input type="file" id="fileInput" name="file" accept="image/png, image/jpeg" required><br><br>
+        
+        <label for="action">Escolha a conversão:</label>
+        <select id="action" name="action">
+            <option value="bw">Preto e Branco</option>
+            <option value="sepia">Filtro Sépia</option>
+        </select><br><br>
+        
+        <button type="submit">Converter</button>
+    </form>
+    <div id="result" style="margin-top: 20px;"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            const resultDiv = document.getElementById('result');
+            const functionUrl = '{{ function_url }}'; // URL injetada pelo Flask
+
+            resultDiv.innerHTML = 'Processando...';
+
+            try {
+                const response = await fetch(functionUrl, { method: 'POST', body: formData });
+                const result = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `<p>Sucesso! <a href="${result.download_url}" target="_blank">Baixar Imagem Convertida</a></p>`;
+                } else {
+                    resultDiv.innerHTML = `<p style="color:red;">Erro: ${result.error || 'Ocorreu um problema.'}</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color:red;">Erro de comunicação com o servidor.</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
