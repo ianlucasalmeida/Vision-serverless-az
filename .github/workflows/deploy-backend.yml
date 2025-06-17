@@ -8,8 +8,8 @@ on:
       - 'backend-functions/**'
 
 env:
-  AZURE_FUNCTIONAPP_NAME: 'vision-az-functions-ian' # Nome que identificamos do seu projeto antigo
-  PYTHON_VERSION: '3.10'
+  AZURE_FUNCTIONAPP_NAME: 'vision-az-functions-ian' # Nome que identificamos
+  PYTHON_VERSION: '3.11' # <-- VERSÃO ATUALIZADA
   PACKAGE_PATH: './backend-functions'
 
 jobs:
