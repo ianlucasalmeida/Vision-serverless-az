@@ -1,4 +1,4 @@
-name: Deploy Frontend Flask App to Azure (Staging)
+name: Deploy Frontend Flask App to Azure
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
       - 'frontend-flask/**'
 
 env:
-  AZURE_WEBAPP_NAME: 'vision-az-linux' # Nome que identificamos
-  PYTHON_VERSION: '3.11' # <-- VERSÃO ATUALIZADA
+  AZURE_WEBAPP_NAME: 'vision-az-linux'
+  PYTHON_VERSION: '3.11'
   PACKAGE_PATH: './frontend-flask'
 
 jobs:
@@ -36,9 +36,8 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Deploy to Staging Slot on Azure Web App
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           package: ${{ env.PACKAGE_PATH }}
-          slot-name: 'staging'

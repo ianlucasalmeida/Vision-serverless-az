@@ -1,4 +1,4 @@
-name: Deploy Backend Functions to Azure (Staging)
+name: Deploy Backend Functions to Azure
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
       - 'backend-functions/**'
 
 env:
-  AZURE_FUNCTIONAPP_NAME: 'vision-az-functions-ian' # Nome que identificamos
-  PYTHON_VERSION: '3.11' # <-- VERSÃO ATUALIZADA
+  AZURE_FUNCTIONAPP_NAME: 'vision-az-functions-ian'
+  PYTHON_VERSION: '3.11'
   PACKAGE_PATH: './backend-functions'
 
 jobs:
@@ -36,9 +36,8 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Deploy to Staging Slot on Azure Function App
+      - name: Deploy to Azure Function App
         uses: azure/functions-action@v1
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
           package: ${{ env.PACKAGE_PATH }}
-          slot-name: 'staging'
