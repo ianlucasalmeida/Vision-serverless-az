@@ -45,3 +45,5 @@ jobs:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           package: ${{ env.PACKAGE_PATH }}
           #teste para ver se funciona
+          #ainda não funciona o gatilho de deploy automático
+          #env: 'production' # Uncomment if you have an environment set up
