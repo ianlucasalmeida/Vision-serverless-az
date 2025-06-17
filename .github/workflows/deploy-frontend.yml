@@ -8,7 +8,7 @@ on:
       - 'frontend-flask/**'
 
 env:
-  AZURE_WEBAPP_NAME: 'NOME_DO_SEU_APP_SERVICE' # 👈 SUBSTITUA PELO NOME DO SEU APP SERVICE (WEB APP)
+  AZURE_WEBAPP_NAME: 'vision-az-linux' # Nome identificado do seu .yml antigo
   PYTHON_VERSION: '3.10'
   PACKAGE_PATH: './frontend-flask'
 
@@ -32,7 +32,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Deploy to Staging Slot on Azure Web App
         uses: azure/webapps-deploy@v2

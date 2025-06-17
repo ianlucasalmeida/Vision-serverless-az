@@ -8,7 +8,7 @@ on:
       - 'backend-functions/**'
 
 env:
-  AZURE_FUNCTIONAPP_NAME: 'NOME_DA_SUA_FUNCTION_APP' # 👈 SUBSTITUA PELO NOME DA SUA FUNCTION APP
+  AZURE_FUNCTIONAPP_NAME: 'vision-az-functions-ian' # Nome identificado do seu .yml antigo
   PYTHON_VERSION: '3.10'
   PACKAGE_PATH: './backend-functions'
 
@@ -32,7 +32,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Deploy to Staging Slot on Azure Function App
         uses: azure/functions-action@v1
