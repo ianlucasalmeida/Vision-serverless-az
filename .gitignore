@@ -1,6 +1,5 @@
 # Arquivos de ambiente local
 local.settings.json
-.vscode/
 
 # Arquivos de cache do Python
 __pycache__/
