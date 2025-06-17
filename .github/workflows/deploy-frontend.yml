@@ -8,7 +8,7 @@ on:
       - 'frontend-flask/**'
 
 env:
-  AZURE_WEBAPP_NAME: 'vision-az-linux' # Nome identificado do seu .yml antigo
+  AZURE_WEBAPP_NAME: 'vision-az-linux' # Nome que identificamos do seu projeto antigo
   PYTHON_VERSION: '3.10'
   PACKAGE_PATH: './frontend-flask'
 

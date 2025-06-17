@@ -8,7 +8,7 @@ on:
       - 'backend-functions/**'
 
 env:
-  AZURE_FUNCTIONAPP_NAME: 'vision-az-functions-ian' # Nome identificado do seu .yml antigo
+  AZURE_FUNCTIONAPP_NAME: 'vision-az-functions-ian' # Nome que identificamos do seu projeto antigo
   PYTHON_VERSION: '3.10'
   PACKAGE_PATH: './backend-functions'
 
