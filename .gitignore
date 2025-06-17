@@ -1,1 +1,18 @@
+# Arquivos de ambiente local
 local.settings.json
+.vscode/
+
+# Arquivos de cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pastas de ambiente virtual
+venv/
+.venv/
+env/
+.env/
+
+# Arquivos de dependências do sistema operacional
+.DS_Store
+Thumbs.db
