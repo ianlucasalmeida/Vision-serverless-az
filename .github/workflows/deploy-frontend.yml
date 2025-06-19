@@ -48,3 +48,11 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           package: ${{ env.PACKAGE_PATH }}
+#Forçando o deploy mesmo que não haja alterações
+          enable-oryx-build: true
+          scm-do-build-during-deployment: true
+          slot-name: production
+
+      - name: Logout from Azure
+        run: az logout
+        if: always()
