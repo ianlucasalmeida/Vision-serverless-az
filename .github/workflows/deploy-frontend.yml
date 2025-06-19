@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'frontend-flask/**'
+  workflow_dispatch:
 
 env:
   AZURE_WEBAPP_NAME: 'vision-az-linux'
